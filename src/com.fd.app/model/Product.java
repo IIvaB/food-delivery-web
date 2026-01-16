@@ -10,6 +10,16 @@ public class Product {
     private final BigDecimal price;
 
     public Product(String id, String name, BigDecimal price) {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("Product id cannot be null or blank");
+        }
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Product name cannot be null or blank");
+        }
+        if (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Product price must be >= 0");
+        }
+
         this.id = id;
         this.name = name;
         this.price = price;
@@ -29,6 +39,7 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
+        System.out.println("equals done");
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
         Product product = (Product) o;
@@ -37,6 +48,16 @@ public class Product {
 
     @Override
     public int hashCode() {
+        System.out.println("hash done");
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
