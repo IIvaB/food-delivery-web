@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 
 public class Main {
     public static void main(String[] args){
-        ProductService productService = new ProductService();
 
         Product product = new Product("1", "Apple", BigDecimal.valueOf(12.4));
         Product product2 = new Product("1", "Apple", BigDecimal.valueOf(12.4));
@@ -16,6 +15,7 @@ public class Main {
         productService.addProduct(product);
         productService.addProduct(product2);
         productService.addProduct(product3);
+        productService.getProductById("4");
         productService.showAllProducts();
     }
 }

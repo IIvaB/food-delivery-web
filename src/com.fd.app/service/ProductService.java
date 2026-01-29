@@ -1,24 +1,50 @@
 package com.fd.app.service;
 
+import com.fd.app.ProductRepository.ProductRepository;
 import com.fd.app.model.Product;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class ProductService{
+    private final ProductRepository productRepository;
 
-    private Map<String, Product> productMap = new HashMap<>();
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public void addProduct(Product product) {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
-        productMap.put(product.getId(), product);
+        if (productRepository.existsProductById(product.getId())) {
+            throw new IllegalArgumentException("Product already exists");
+        }
+        productRepository.addProductMap(product);
     }
 
-    public void showAllProducts(){
-        for(Product product:productMap.values()){
-            System.out.println(product);
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+
+    public Product getProductById(String id){
+        if(id == null){
+            throw new IllegalArgumentException("Product id cannot be null");
         }
+        if(!productRepository.existsProductById(id)){
+            throw new IllegalArgumentException("Product not found");
+        }
+        Product product = productRepository.getProductById(id);
+        return product;
+    }
+
+    public void removeProductById(String id){
+        if(id == null){
+            throw new IllegalArgumentException("Product id cannot be null");
+        }
+        if(!productRepository.existsProductById(id)){
+            throw new IllegalArgumentException("Product doesn't exist");
+        }
+        productRepository.removeProductById(id);
     }
 }
