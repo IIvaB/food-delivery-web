@@ -3,6 +3,7 @@ package com.fd.app.service;
 import com.fd.app.model.Cart;
 import com.fd.app.model.Product;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 public class CartService {
@@ -49,4 +50,29 @@ public class CartService {
         if (product == null) throw new IllegalArgumentException("Product cannot be null");
         if (quantity <= 0) throw new IllegalArgumentException("Quantity must be > 0");
     }
+
+    public BigDecimal getTotalPrice(Cart cart) {
+        if (cart == null) throw new IllegalArgumentException("Cart cannot be null");
+
+        BigDecimal total = BigDecimal.ZERO;
+        for (Map.Entry<Product, Integer> entry : cart.getCartMap().entrySet()) {
+            Product product = entry.getKey();
+            Integer quantity = entry.getValue();
+
+            BigDecimal lineTotal = product.getPrice().multiply(BigDecimal.valueOf(quantity));
+            total = total.add(lineTotal);
+        }
+        return total;
+    }
+
+    public int getTotalQuantity(Cart cart) {
+        if (cart == null) throw new IllegalArgumentException("Cart cannot be null");
+
+        int total = 0;
+        for (Integer quantity : cart.getCartMap().values()) {
+            total += quantity;
+        }
+        return total;
+    }
+
 }
