@@ -1,4 +1,4 @@
-package com.fd.app.ProductRepository;
+package com.fd.app.repository;
 
 import com.fd.app.model.Product;
 

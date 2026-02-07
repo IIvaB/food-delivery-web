@@ -1,6 +1,6 @@
 package com.fd.app.service;
 
-import com.fd.app.ProductRepository.ProductRepository;
+import com.fd.app.repository.ProductRepository;
 import com.fd.app.model.Product;
 
 import java.util.List;

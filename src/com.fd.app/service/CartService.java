@@ -74,5 +74,4 @@ public class CartService {
         }
         return total;
     }
-
 }
