@@ -1,7 +1,6 @@
 package com.fd.app;
 
 import com.fd.app.model.Product;
-import com.fd.app.service.ProductService;
 
 import java.math.BigDecimal;
 
