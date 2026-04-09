@@ -1,5 +1,7 @@
 package com.fd.app.model;
 
+import com.fd.app.entity.Product;
+
 import java.util.HashMap;
 import java.util.Map;
 

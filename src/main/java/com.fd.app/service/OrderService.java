@@ -1,17 +1,16 @@
 package com.fd.app.service;
 
 import com.fd.app.model.Cart;
-import com.fd.app.model.Order;
-import com.fd.app.model.OrderItem;
+import com.fd.app.entity.Order;
+import com.fd.app.entity.OrderItem;
 import com.fd.app.model.OrderStatus;
-import com.fd.app.model.Product;
+import com.fd.app.entity.Product;
 import com.fd.app.repository.OrderRepository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public class OrderService {
 
@@ -38,7 +37,7 @@ public class OrderService {
             items.add(new OrderItem(product, quantity, product.getPrice()));
         }
 
-        Order order = new Order(UUID.randomUUID().toString(), items);
+        Order order = new Order(items);
 
         orderRepository.save(order);     // якщо save впаде — кошик не очиститься
         cartService.clearCart(cart);

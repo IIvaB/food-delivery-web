@@ -8,7 +8,7 @@
 
     <!-- PostgreSQL connection -->
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/food_delivery</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/food-delivery-web-DB</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">root</property>
 
@@ -24,9 +24,9 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
 
     <!-- Entity mappings -->
-    <mapping class="com.fd.app.model.Product"/>
-    <mapping class="com.fd.app.model.Order"/>
-    <mapping class="com.fd.app.model.OrderItem"/>
+    <mapping class="com.fd.app.entity.Product"/>
+    <mapping class="com.fd.app.entity.Order"/>
+    <mapping class="com.fd.app.entity.OrderItem"/>
 
   </session-factory>
 </hibernate-configuration>

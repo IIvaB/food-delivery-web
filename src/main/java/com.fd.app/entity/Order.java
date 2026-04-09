@@ -1,31 +1,51 @@
-package com.fd.app.model;
+package com.fd.app.entity;
+
+import com.fd.app.model.OrderStatus;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "orders")
 public class Order {
-    private final String id;
-    private final List<OrderItem> items;
-    private final BigDecimal totalPrice;
-    private final LocalDateTime createdAt;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private List<OrderItem> items;
+
+    @Column (name = "total_price", nullable = false)
+    private BigDecimal totalPrice;
+
+    @Column (name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderStatus status;
 
-    public Order(String id, List<OrderItem> items) {
+    public Order(List<OrderItem> items) {
 
         validate(id, items);
 
-        this.id = id;
-        this.items = List.copyOf(items);          // захист від змін ззовні
+        this.items = items;
         this.totalPrice = calculateTotalPrice(this.items);
         this.createdAt = LocalDateTime.now();
         this.status = OrderStatus.CREATED;
     }
 
-    public String getId() {
+    public Order() {
+
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -57,20 +77,17 @@ public class Order {
         return total;
     }
 
-    private void validate(String id, List<OrderItem> items) {
-        if (id == null || id.isBlank()) {
-            throw new IllegalArgumentException("Order id cannot be null or blank");
-        }
+    private void validate(Long id, List<OrderItem> items) {
         if (items == null || items.isEmpty()) {
             throw new IllegalArgumentException("Items cannot be null or empty");
         }
 
         // null-елементи + дублікати продуктів
-        Set<String> productIds = new HashSet<>();
+        Set<Long> productIds = new HashSet<>();
         for (OrderItem item : items) {
             if (item == null) throw new IllegalArgumentException("OrderItem cannot be null");
 
-            String productId = item.getProduct().getId();
+            Long productId = item.getProduct().getId();
             if (!productIds.add(productId)) {
                 throw new IllegalArgumentException("Duplicate product in order: " + productId);
             }
@@ -85,15 +102,15 @@ public class Order {
         this.status = status;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order order)) return false;
-        return Objects.equals(id, order.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Order order)) return false;
+//        return Objects.equals(id, order.id);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id);
+//    }
 }

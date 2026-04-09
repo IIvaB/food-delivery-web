@@ -1,6 +1,6 @@
 package com.fd.app.repository;
 
-import com.fd.app.model.Product;
+import com.fd.app.entity.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,17 +9,17 @@ import java.util.Map;
 
 public class ProductRepository {
 
-    private final Map<String, Product> productMap = new HashMap<>();
+    private final Map<Long, Product> productMap = new HashMap<>();
 
     public void addProductMap(Product product) {
         productMap.put(product.getId(), product);
     }
 
-    public Product getProductById(String id) {
+    public Product getProductById(Long id) {
         return productMap.get(id);
     }
 
-    public  boolean existsProductById(String id) {
+    public  boolean existsProductById(Long id) {
         return productMap.containsKey(id);
     }
 
@@ -27,7 +27,7 @@ public class ProductRepository {
         return new ArrayList<>(productMap.values());
     }
 
-    public void removeProductById(String id) {
+    public void removeProductById(Long id) {
         productMap.remove(id);
     }
 }

@@ -1,11 +1,26 @@
-package com.fd.app.model;
+package com.fd.app.entity;
+
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+@Entity
+@Table (name = "order_items")
 public class OrderItem {
-    private final Product product;
-    private final int quantity;
-    private final BigDecimal unitPrice;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @Column (name = "quantity", nullable = false)
+    private int quantity;
+
+    @Column (name = "unit_price", nullable = false)
+    private BigDecimal unitPrice;
 
     public OrderItem(Product product, int quantity, BigDecimal unitPrice) {
         validate(product, quantity, unitPrice);
@@ -14,8 +29,15 @@ public class OrderItem {
         this.unitPrice = unitPrice;
     }
 
+    public OrderItem() {
+    }
+
     public BigDecimal getLineTotal() {
         return unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Product getProduct() {

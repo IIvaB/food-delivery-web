@@ -1,6 +1,6 @@
 package com.fd.app.repository;
 
-import com.fd.app.model.Order;
+import com.fd.app.entity.Order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderRepository {
-    private final Map<String, Order> storage = new HashMap<>();
+    private final Map<Long, Order> storage = new HashMap<>();
 
     public Order save(Order order) {
         if (order == null) throw new IllegalArgumentException("Order cannot be null");
 
-        String id = order.getId();
-        if (id == null || id.isBlank()) throw new IllegalArgumentException("Order id cannot be null or blank");
+        Long id = order.getId();
 
         storage.put(id, order);
         return order;

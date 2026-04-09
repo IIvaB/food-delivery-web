@@ -1,7 +1,7 @@
 package com.fd.app.service;
 
 import com.fd.app.model.Cart;
-import com.fd.app.model.Product;
+import com.fd.app.entity.Product;
 
 import java.math.BigDecimal;
 import java.util.Map;

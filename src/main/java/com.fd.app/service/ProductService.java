@@ -1,7 +1,7 @@
 package com.fd.app.service;
 
 import com.fd.app.repository.ProductRepository;
-import com.fd.app.model.Product;
+import com.fd.app.entity.Product;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class ProductService{
     }
 
 
-    public Product getProductById(String id){
+    public Product getProductById(Long id){
         if(id == null){
             throw new IllegalArgumentException("Product id cannot be null");
         }
@@ -38,7 +38,7 @@ public class ProductService{
         return product;
     }
 
-    public void removeProductById(String id){
+    public void removeProductById(Long id){
         if(id == null){
             throw new IllegalArgumentException("Product id cannot be null");
         }
