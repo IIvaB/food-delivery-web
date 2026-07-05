@@ -28,8 +28,8 @@ class OrderServiceTest {
     void createOrder_createsOrder_andClearsCart() {
         Cart cart = new Cart();
 
-        Product burger = new Product("p1", "Burger", new BigDecimal("120.00"));
-        Product cola = new Product("p2", "Cola", new BigDecimal("30.00"));
+        Product burger = new Product("Burger", new BigDecimal("120.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
 
         cartService.addProduct(cart, burger, 2);
         cartService.addProduct(cart, cola, 1);
@@ -95,7 +95,7 @@ class OrderServiceTest {
 
     private Order createSimpleOrder() {
         Cart cart = new Cart();
-        Product cola = new Product("p1", "Cola", new BigDecimal("30.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
         cartService.addProduct(cart, cola, 1);
         return orderService.createOrder(cart);
     }

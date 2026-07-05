@@ -15,7 +15,7 @@ class CartServiceTest {
         // Arrange
         CartService service = new CartService();
         Cart cart = new Cart();
-        Product cola = new Product("p1", "Cola", new BigDecimal("30.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
 
         // Act
         service.addProduct(cart, cola, 2);
@@ -29,7 +29,7 @@ class CartServiceTest {
     void clearCart_removesAllProducts() {
         CartService service = new CartService();
         Cart cart = new Cart();
-        Product cola = new Product("p1", "Cola", new BigDecimal("30.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
 
         service.addProduct(cart, cola, 2);
         service.clearCart(cart);
@@ -43,8 +43,8 @@ class CartServiceTest {
         CartService service = new CartService();
         Cart cart = new Cart();
 
-        Product cola = new Product("p1", "Cola", new BigDecimal("30.00"));
-        Product apple = new Product("p2", "Apple", new BigDecimal("40.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
+        Product apple = new Product("Apple", new BigDecimal("40.00"));
 
         service.addProduct(cart, cola, 2);
         service.addProduct(cart, apple, 2);
@@ -60,7 +60,7 @@ class CartServiceTest {
         CartService service = new CartService();
         Cart cart = new Cart();
 
-        Product cola = new Product("p1", "Cola", new BigDecimal("30.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
 
         service.addProduct(cart, cola, 2);
         service.addProduct(cart, cola, 3);
@@ -74,7 +74,7 @@ class CartServiceTest {
         CartService service = new CartService();
         Cart cart = new Cart();
 
-        Product cola = new Product("p1", "Cola", new BigDecimal("30.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
 
         service.addProduct(cart, cola, 2);
 
@@ -90,7 +90,7 @@ class CartServiceTest {
         CartService service = new CartService();
         Cart cart = new Cart();
 
-        Product cola = new Product("p1", "Cola", new BigDecimal("30.00"));
+        Product cola = new Product("Cola", new BigDecimal("30.00"));
         service.addProduct(cart, cola, 2);
 
         assertThrows(
