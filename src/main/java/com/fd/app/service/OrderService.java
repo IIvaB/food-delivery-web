@@ -45,7 +45,7 @@ public class OrderService {
         return order;
     }
 
-    public Order getById(String orderId) {
+    public Order getById(Long orderId) {
         validateOrderId(orderId);
 
         Order order = orderRepository.findById(orderId);
@@ -58,19 +58,19 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public void markAsPaid(String orderId) {
+    public void markAsPaid(Long orderId) {
         changeStatus(orderId, OrderStatus.PAID);
     }
 
-    public void markAsDelivered(String orderId) {
+    public void markAsDelivered(Long orderId) {
         changeStatus(orderId, OrderStatus.DELIVERED);
     }
 
-    public void cancel(String orderId) {
+    public void cancel(Long orderId) {
         changeStatus(orderId, OrderStatus.CANCELLED);
     }
 
-    private void changeStatus(String orderId, OrderStatus targetStatus) {
+    private void changeStatus(Long orderId, OrderStatus targetStatus) {
         if (targetStatus == null) throw new IllegalArgumentException("Target status cannot be null");
 
         Order order = getById(orderId);
@@ -84,8 +84,8 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    private void validateOrderId(String orderId) {
-        if (orderId == null || orderId.isBlank()) {
+    private void validateOrderId(Long orderId) {
+        if (orderId == null) {
             throw new IllegalArgumentException("Order id cannot be null or blank");
         }
     }

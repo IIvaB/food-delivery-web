@@ -19,13 +19,13 @@ public class OrderRepository {
         return order;
     }
 
-    public Order findById(String id) {
-        if (id == null || id.isBlank()) throw new IllegalArgumentException("Order id cannot be null or blank");
+    public Order findById(Long id) {
+        if (id == null) throw new IllegalArgumentException("Order id cannot be null or blank");
         return storage.get(id);
     }
 
-    public boolean existsById(String id) {
-        if (id == null || id.isBlank()) throw new IllegalArgumentException("Order id cannot be null or blank");
+    public boolean existsById(Long id) {
+        if (id == null) throw new IllegalArgumentException("Order id cannot be null or blank");
         return storage.containsKey(id);
     }
 
@@ -33,8 +33,8 @@ public class OrderRepository {
         return new ArrayList<>(storage.values());
     }
 
-    public void deleteById(String id) {
-        if (id == null || id.isBlank()) throw new IllegalArgumentException("Order id cannot be null or blank");
+    public void deleteById(Long id) {
+        if (id == null) throw new IllegalArgumentException("Order id cannot be null or blank");
         if (!storage.containsKey(id)) throw new IllegalArgumentException("Order not found");
         storage.remove(id);
     }
