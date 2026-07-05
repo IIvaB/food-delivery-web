@@ -46,27 +46,4 @@ public class Product {
         return price;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        System.out.println("equals done");
-//        if (this == o) return true;
-//        if (!(o instanceof Product)) return false;
-//        Product product = (Product) o;
-//        return Objects.equals(id, product.id);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        System.out.println("hash done");
-//        return Objects.hash(id);
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Product{" +
-//                "id='" + id + '\'' +
-//                ", name='" + name + '\'' +
-//                ", price=" + price +
-//                '}';
-//    }
 }
