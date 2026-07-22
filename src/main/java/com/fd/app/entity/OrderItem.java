@@ -12,7 +12,11 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -52,9 +56,13 @@ public class OrderItem {
         return unitPrice;
     }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     private void validate(Product product, int quantity, BigDecimal unitPrice) {
         if (product == null) throw new IllegalArgumentException("Product cannot be null");
-        if (quantity <= 0) throw new IllegalArgumentException("Quantity cannot be negative or ZERO");
+        if (quantity <= 0) throw new IllegalArgumentException("Quantity must be greater than zero");
         if (unitPrice == null) throw new IllegalArgumentException("Unit price cannot be null");
         if (unitPrice.compareTo(BigDecimal.ZERO) < 0) throw new IllegalArgumentException("Unit price cannot be negative");
     }

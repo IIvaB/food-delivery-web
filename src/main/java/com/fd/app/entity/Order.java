@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,8 +18,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = true)
     private List<OrderItem> items;
 
     @Column (name = "total_price", nullable = false)
@@ -33,12 +33,18 @@ public class Order {
 
     public Order(List<OrderItem> items) {
 
-        validate(id, items);
+        validate(items);
 
-        this.items = items;
+        this.items = new ArrayList<>();
+
+        for (OrderItem item : items) {
+            addItem(item);
+        }
+
         this.totalPrice = calculateTotalPrice(this.items);
         this.createdAt = LocalDateTime.now();
         this.status = OrderStatus.CREATED;
+
     }
 
     public Order() {
@@ -69,6 +75,13 @@ public class Order {
         return total;
     }
 
+    public void addItem(OrderItem item) {
+
+        items.add(item);
+
+        item.setOrder(this);
+    }
+
     private BigDecimal calculateTotalPrice(List<OrderItem> items) {
         BigDecimal total = BigDecimal.ZERO;
         for (OrderItem item : items) {
@@ -77,7 +90,7 @@ public class Order {
         return total;
     }
 
-    private void validate(Long id, List<OrderItem> items) {
+    private void validate(List<OrderItem> items) {
         if (items == null || items.isEmpty()) {
             throw new IllegalArgumentException("Items cannot be null or empty");
         }
