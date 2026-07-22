@@ -44,4 +44,18 @@ public class ProductService{
         }
         productRepository.deleteById(id);
     }
+
+    public Optional<Product> getProductByName(String name){
+        if(name == null){
+            throw new IllegalArgumentException("Product id cannot be null");
+        }
+
+        Optional<Product> product = productRepository.findByName(name);
+
+        if(product == null){
+            throw new IllegalArgumentException("Product not found");
+        }
+
+        return product;
+    }
 }

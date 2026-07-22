@@ -4,8 +4,8 @@ services:
     container_name: food-delivery-postgres
     environment:
       POSTGRES_DB: food_delivery_db
-      POSTGRES_USER: food_delivery_user
-      POSTGRES_PASSWORD: food_delivery_password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1212
     ports:
       - "5432:5432"
     volumes:

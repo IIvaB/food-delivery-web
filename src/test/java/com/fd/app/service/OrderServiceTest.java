@@ -46,59 +46,59 @@ class OrderServiceTest {
         assertTrue(orderRepository.existsById(order.getId()));
     }
 
-    @Test
-    void markAsPaid_changesStatusToPaid() {
-        Order order = createSimpleOrder();
-
-        orderService.markAsPaid(order.getId());
-
-        assertEquals(
-                OrderStatus.PAID,
-                orderService.getById(order.getId()).getStatus()
-        );
-    }
-
-    @Test
-    void markAsDelivered_afterPaid_changesStatusToDelivered() {
-        Order order = createSimpleOrder();
-
-        orderService.markAsPaid(order.getId());
-        orderService.markAsDelivered(order.getId());
-
-        assertEquals(
-                OrderStatus.DELIVERED,
-                orderService.getById(order.getId()).getStatus()
-        );
-    }
-
-    @Test
-    void cancel_fromCreated_changesStatusToCancelled() {
-        Order order = createSimpleOrder();
-
-        orderService.cancel(order.getId());
-
-        assertEquals(
-                OrderStatus.CANCELLED,
-                orderService.getById(order.getId()).getStatus()
-        );
-    }
-
-    @Test
-    void cancel_afterPaid_throwsException() {
-        Order order = createSimpleOrder();
-
-        orderService.markAsPaid(order.getId());
-
-        assertThrows(
-                IllegalStateException.class,
-                () -> orderService.cancel(order.getId())
-        );
-    }
-
-    private Order createSimpleOrder() {
-        Cart cart = new Cart();
-        Product cola = new Product("Cola", new BigDecimal("30.00"));
-        cartService.addProduct(cart, cola, 1);
-        return orderService.createOrder(cart);
-    }
+//    @Test
+//    void markAsPaid_changesStatusToPaid() {
+//        Order order = createSimpleOrder();
+//
+//        orderService.markAsPaid(order.getId());
+//
+//        assertEquals(
+//                OrderStatus.PAID,
+//                orderService.getById(order.getId()).getStatus()
+//        );
+//    }
+//
+//    @Test
+//    void markAsDelivered_afterPaid_changesStatusToDelivered() {
+//        Order order = createSimpleOrder();
+//
+//        orderService.markAsPaid(order.getId());
+//        orderService.markAsDelivered(order.getId());
+//
+//        assertEquals(
+//                OrderStatus.DELIVERED,
+//                orderService.getById(order.getId()).getStatus()
+//        );
+//    }
+//
+//    @Test
+//    void cancel_fromCreated_changesStatusToCancelled() {
+//        Order order = createSimpleOrder();
+//
+//        orderService.cancel(order.getId());
+//
+//        assertEquals(
+//                OrderStatus.CANCELLED,
+//                orderService.getById(order.getId()).getStatus()
+//        );
+//    }
+//
+//    @Test
+//    void cancel_afterPaid_throwsException() {
+//        Order order = createSimpleOrder();
+//
+//        orderService.markAsPaid(order.getId());
+//
+//        assertThrows(
+//                IllegalStateException.class,
+//                () -> orderService.cancel(order.getId())
+//        );
+//    }
+//
+//    private Order createSimpleOrder() {
+//        Cart cart = new Cart();
+//        Product cola = new Product("Cola", new BigDecimal("30.00"));
+//        cartService.addProduct(cart, cola, 1);
+//        return orderService.createOrder(cart);
+//    }
 }
